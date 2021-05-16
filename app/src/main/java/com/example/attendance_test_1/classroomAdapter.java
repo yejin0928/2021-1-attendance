@@ -1,6 +1,7 @@
 package com.example.attendance_test_1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,14 @@ public class classroomAdapter extends RecyclerView.Adapter<classroomAdapter.Cust
         holder.tv_code.setText(arrayList.get(position).getCourse_code());
         holder.tv_name.setText(arrayList.get(position).getCourse_name());
         holder.tv_profname.setText(arrayList.get(position).getCourse_professor());
+        holder.btn_attend.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //출석 버튼 누르면, 그 강의에 대한 attend 테이블의 course_week로 가서 강의주차 출력하도록
+
+
+            }
+        });
     }
 
     @Override

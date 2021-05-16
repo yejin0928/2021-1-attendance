@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".TMenuActivity" />
         <activity android:name=".SMenuActivity" />
-        <activity android:name=".classroomActivity" />
+        <activity android:name=".SclassroomActivity" />
+        <activity android:name=".TclassroomActivity" />
         <activity android:name=".weekActivity" />
     </application>
 

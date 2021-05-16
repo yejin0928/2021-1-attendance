@@ -1,5 +1,6 @@
 package com.example.attendance_test_1;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class classroomActivity extends AppCompatActivity {
+public class SclassroomActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -26,7 +27,14 @@ public class classroomActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.classroom_main);
+        setContentView(R.layout.classroom_s_main);
+
+        Intent intent = getIntent();
+        String email=intent.getStringExtra("user_code");
+
+        //email 에서 앞부분 추출
+        int index = email.indexOf("@");
+        String emailID = email.substring(0,index);
 
         recyclerView=findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true); //리사이클러뷰 기존 성능 강화
@@ -35,9 +43,8 @@ public class classroomActivity extends AppCompatActivity {
         arrayList=new ArrayList<>();
 
         database= FirebaseDatabase.getInstance(); // 파이어베이스 db 연동
-        databaseReference=database.getReference("classroom"); //table 이름
-
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference=database.getReference("student"); //table 이름
+        databaseReference.child(emailID).child("course_list").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //파이어베이스 db의 데이터를 받아오는 곳
@@ -55,6 +62,7 @@ public class classroomActivity extends AppCompatActivity {
                 //디비를 가져오던 중 에러 발생시 처리 부분
             }
         });
+
 
         adapter=new classroomAdapter(arrayList, this);
         recyclerView.setAdapter(adapter); //리사이클러뷰에 어댑터 연결
